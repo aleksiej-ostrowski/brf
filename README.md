@@ -6,7 +6,7 @@ Computational experimentation to improve the predictive power of some tree-algor
 
 ./brf.o --selftest 0
 
-## A tree 
+## Tree 
 
 ![dot.png](pictures/dot.png)
 
