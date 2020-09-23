@@ -5,3 +5,12 @@ Computational experimentation to improve the predictive power of some tree-algor
 ## Selftest
 
 ./brf.o --selftest 0
+
+## A tree 
+
+![dot.png](pictures/dot.png)
+
+
+
+
+
