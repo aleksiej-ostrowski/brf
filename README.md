@@ -4,9 +4,15 @@ Computational experimentation to improve the predictive power of some tree-algor
 
 ## Selftest
 
-./brf.o --selftest 0
+After compiling you may immediately test the tree-predictors.
+
+`./brf.o --selftest 0`
 
 ## Tree 
+
+Example of tree visualization:
+
+`xdot forest_parody.dot_MAIN_EPOCH_1.dot`
 
 ![dot.png](pictures/dot.png)
 
