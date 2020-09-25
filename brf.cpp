@@ -40,13 +40,11 @@
 #include <regex>
 #include <mutex>
 
-using namespace std;
-
 const std::string about =
 "\n"
 "/* ————————————————————————————————————————————————————————————————*\n"
 " * boosted random forest                                           *\n"
-" * version 0.96001                                                 *\n"
+" * version 0.96002                                                 *\n"
 " * (c) Aleksiej Ostrowski, aleksiej.ostrowski@gmail.com, 2014-2020 *\n"
 " * ————————————————————————————————————————————————————————————————*/"
 "\n";
@@ -455,7 +453,7 @@ std::string print_sec(const int32_t s, const bool no_color = false)
         w1 = ""; w2 = "";
     }
 
-    ostringstream ss;
+    std::ostringstream ss;
 
     if (days > 0) ss << w1;
     ss << days << " d ";
@@ -482,7 +480,7 @@ std::string print_now()
     std::time_t tt = system_clock::to_time_t (system_clock::now());
     auto p = std::localtime(&tt);
 
-    ostringstream ss;
+    std::ostringstream ss;
     ss << std::put_time(p, "%F %T");
 
     return ss.str();
@@ -751,7 +749,7 @@ void load_test(const std::string fl)
         if (myfile.is_open()) break;
         myfile.clear();
         std::cout << "unknown test file: " << ftest << std::endl << "please, input new name of TEST file (# - exit): ";
-        getline(cin, ftest);
+        std::getline(std::cin, ftest);
         if (ftest == "#") exit(1);
     }
 
@@ -826,7 +824,7 @@ void load_train_and_control(const std::string fl)
         if (myfile.is_open()) break;
         myfile.clear();
         std::cout << "unknown train_and_control file: " << ftrain_and_control << std::endl << "please, input new name of TRAIN_AND_CONTROL file (# - exit): ";
-        getline(cin, ftrain_and_control);
+        getline(std::cin, ftrain_and_control);
         if (ftrain_and_control == "#") exit(1);
     }
 
@@ -857,7 +855,7 @@ void load_holdout(const std::string fl)
         if (myfile.is_open()) break;
         myfile.clear();
         std::cout << "unknown holdout file: " << fval << std::endl << "please, input new name of holdout file (# - exit): ";
-        getline(cin, fval);
+        std::getline(std::cin, fval);
         if (fval == "#") exit(1);
     }
 
@@ -1188,7 +1186,7 @@ void load_big_train_and_control(const std::string fl, std::unordered_map<std::st
         if (line.length() < 1) continue;
 
         auto bb = std::chrono::high_resolution_clock::now();
-        auto t1 = chrono::duration_cast<chrono::duration<double>>(bb - aa).count();
+        auto t1 = std::chrono::duration_cast<std::chrono::duration<double>>(bb - aa).count();
 
         if (t1 > ZEITNOT)
         {
@@ -3083,7 +3081,7 @@ void train_and_test_and_holdout_parody()
 
     for(size_t row = 0; row < size_train; row++)
     {
-        ostringstream s;
+        std::ostringstream s;
         s.clear();
 
         int32_t sum, sum2;
@@ -3152,7 +3150,7 @@ void train_and_test_and_holdout_parody()
 
     for(size_t row = 0; row < size_test; row++)
     {
-        ostringstream s;
+        std::ostringstream s;
         s.clear();
 
         int32_t sum1, sum2, sum3;
@@ -3237,7 +3235,7 @@ void train_and_test_and_holdout_parody()
 
     for(size_t row = 0; row < size_holdout; row++)
     {
-        ostringstream s;
+        std::ostringstream s;
         s.clear();
 
         int32_t sum, sum2;
@@ -3706,7 +3704,7 @@ int32_t main(int argc, char* argv[])
     {
         if (load_command(COMMAND_FILE) == 1) break;
 
-        auto uptime = std::round(chrono::duration_cast<chrono::milliseconds>(std::chrono::high_resolution_clock::now() - start_1).count() * 0.001);
+        auto uptime = std::round(std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - start_1).count() * 0.001);
 
         std::cout << print_now() << std::endl << "UPTIME: " << print_sec(uptime) << std::endl;
 
@@ -4164,7 +4162,7 @@ int32_t main(int argc, char* argv[])
         if (++epoch > EPOCH) break;
 
         auto end_1 = std::chrono::high_resolution_clock::now();
-        double t1 = chrono::duration_cast<chrono::milliseconds>(end_1 - start_1).count() / epoch;
+        double t1 = std::chrono::duration_cast<std::chrono::milliseconds>(end_1 - start_1).count() / epoch;
         auto t2 = std::round((EPOCH - epoch + 1.0) * t1 * 0.001);
         std::cout << "WAIT:   " << print_sec(t2) << std::endl << std::endl;
     }
@@ -4252,7 +4250,7 @@ int32_t main(int argc, char* argv[])
         for (const auto & x : e)
             outfile << x << ",";
 
-        ostringstream s;
+        std::ostringstream s;
         if (IsEqual(res_test_v[row], MAGIC_1))
         {
              bad_++;
@@ -4285,11 +4283,11 @@ int32_t main(int argc, char* argv[])
 
     std::cout << std::endl << "------------------------------------------------------------" <<
 
-    std::endl << "ALL TIME: " << print_sec(chrono::duration_cast<chrono::seconds>(end_0 - start_0).count()) <<
-    chrono::duration_cast<chrono::milliseconds>(end_0 - start_0).count() % 1000 << " ms " << std::endl << std::endl;
+    std::endl << "ALL TIME: " << print_sec(std::chrono::duration_cast<std::chrono::seconds>(end_0 - start_0).count()) <<
+    std::chrono::duration_cast<std::chrono::milliseconds>(end_0 - start_0).count() % 1000 << " ms " << std::endl << std::endl;
 
-    logfile   << "ALL TIME: " << print_sec(chrono::duration_cast<chrono::seconds>(end_0 - start_0).count(), true) <<
-    chrono::duration_cast<chrono::milliseconds>(end_0 - start_0).count() % 1000 << " ms " << std::endl;
+    logfile   << "ALL TIME: " << print_sec(std::chrono::duration_cast<std::chrono::seconds>(end_0 - start_0).count(), true) <<
+    std::chrono::duration_cast<std::chrono::milliseconds>(end_0 - start_0).count() % 1000 << " ms " << std::endl;
 
     logfile << std::endl << "-end- " << print_now() << " ------------------------>" << std::endl;
 
