@@ -1,4 +1,4 @@
-// g++-10 brf.cpp -march=native -std=c++11 -Ofast -pthread -o brf.o
+// g++-11 brf.cpp -march=native -std=c++11 -Ofast -pthread -o brf.o
 
 #include <fstream>
 #include <iostream>
@@ -44,8 +44,8 @@ const std::string about =
 "\n"
 "/* ————————————————————————————————————————————————————————————————*\n"
 " * boosted random forest                                           *\n"
-" * version 0.96002                                                 *\n"
-" * (c) Aleksiej Ostrowski, aleksiej.ostrowski@gmail.com, 2014-2020 *\n"
+" * version 0.96003                                                 *\n"
+" * (c) Aleksiej Ostrowski, aleksiej.ostrowski@gmail.com, 2014-2022 *\n"
 " * ————————————————————————————————————————————————————————————————*/"
 "\n";
 
@@ -68,7 +68,7 @@ uint32_t NOISE_MISS = 0;
 // 2 = only missing
 // 3 = noise + missing
 
-uint32_t LEAK_TEST   = 1;
+uint32_t LEAK_TEST   = 0;
 uint32_t BINARY_TEST = 1;
 
 std::mutex barrier, barrier_print, barrier_holdout, barrier_test, barrier_cases_id;
@@ -3491,9 +3491,9 @@ int32_t main(int argc, char* argv[])
     MAX_WIDTH = str_to_int(read_tag("max_width", cnfg_strs), 2000);
     MAX_LEVEL = str_to_int(read_tag("max_level", cnfg_strs), 6);
 
-    COUNT_FROM = str_to_int(read_tag("count_from", cnfg_strs), 10);
-    COUNT_TO = str_to_int(read_tag("count_to", cnfg_strs), 100); // 5
-    N_FOREST = str_to_int(read_tag("n_forest", cnfg_strs), 100);
+    COUNT_FROM = str_to_int(read_tag("count_from", cnfg_strs), 30);
+    COUNT_TO = str_to_int(read_tag("count_to", cnfg_strs), 300); // 5
+    N_FOREST = str_to_int(read_tag("n_forest", cnfg_strs), 300);
     N_FOREST_ERR = str_to_int(read_tag("n_forest_err", cnfg_strs), 100);
     N_FOREST_ERR2 = str_to_int(read_tag("n_forest_err2", cnfg_strs), 100);
 
@@ -3504,7 +3504,7 @@ int32_t main(int argc, char* argv[])
 
     // if (EPOCH < 2) EPOCH = 2;
 
-    BOOST = str_to_int(read_tag("boost", cnfg_strs), 0);
+    BOOST = str_to_int(read_tag("boost", cnfg_strs), 2);
 
     EXCLUDE_SUCCESS = str_to_bool(read_tag("exclude_success", cnfg_strs), false);
 
@@ -3586,13 +3586,13 @@ int32_t main(int argc, char* argv[])
 
     seed_ = str_to_int(read_tag("seed", cnfg_strs), 2020);
 
-    ALPHA = str_to_double(read_tag("alpha", cnfg_strs), 0.02); // 0.02
-    LAMBDA = str_to_double(read_tag("lambda", cnfg_strs), 0.01);
+    ALPHA = str_to_double(read_tag("alpha", cnfg_strs), 0.5); // 0.02
+    LAMBDA = str_to_double(read_tag("lambda", cnfg_strs), 0.1);
     // KICKDOWN = str_to_double(read_tag("kickdown", cnfg_strs), 0.3);
 
     GAMMA = str_to_double(read_tag("gamma", cnfg_strs), 0.0001);
 
-    K1 = str_to_double(read_tag("k1", cnfg_strs), 300.0);
+    K1 = str_to_double(read_tag("k1", cnfg_strs), 100.0);
     W  = str_to_int(read_tag("w", cnfg_strs), 1);
 
     DISCRETIO = str_to_bool(read_tag("discretio", cnfg_strs), false);

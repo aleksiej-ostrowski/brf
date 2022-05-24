@@ -1,0 +1,9 @@
+    
+| Regressor | RMSE |    
+| --- | --- |
+| My boosted random forest | 0.08660 |
+| xgboost.XGBRegressor | 0.08976 |
+| sklearn.ensemble.GradientBoostingRegressor | 0.07946 |
+| sklearn.ensemble.RandomForestRegressor | 0.08311 |
+| lightgbm.LGBMRegressor | 0.07557 |
+| catboost.CatBoostRegressor | 0.06097 |
