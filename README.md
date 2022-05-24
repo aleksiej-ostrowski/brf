@@ -1,6 +1,6 @@
 # Boosted random forest
 
-This is the experimental algorithm based on decision trees.
+This is the DIY experimental algorithm based on decision trees.
 
 ## Selftest
 
@@ -10,7 +10,7 @@ This is the experimental algorithm based on decision trees.
 
 | Regressor | RMSE |        
 | --- | --- |    
-| my boosted random forest | 0.08660 |    
+| DIY boosted random forest | 0.08660 |    
 | xgboost.XGBRegressor | 0.08976 |    
 | sklearn.ensemble.GradientBoostingRegressor | 0.07946 |    
 | sklearn.ensemble.RandomForestRegressor | 0.08311 |    
